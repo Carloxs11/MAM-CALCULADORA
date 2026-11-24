@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculadora de ROAS de equilibrio · Carlos Guti</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04060E;--navy:#0A1433;--blue:#1F5CFF;--y:#FFD400;--soft:#C9D2EA;--mut:#8E98B3;--card:#0F1B44;--line:rgba(120,150,255,.22);--red:#FF5A6E;--green:#2EE59D}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:#fff;font-family:Inter,system-ui,sans-serif;line-height:1.45;padding:20px 16px 40px}
+.w{max-width:620px;margin:0 auto}
+.top{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+h1{font-family:"Archivo Black";font-size:30px;line-height:1.05;margin:16px 0 8px}
+h1 span{color:var(--y)}
+.lead{color:var(--soft);font-size:15px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.card h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--y);margin-bottom:10px}
+label{display:block;font-size:13px;font-weight:700;margin:10px 0 4px}
+label small{font-weight:500;color:var(--mut)}
+.in{display:flex;align-items:center;background:#070C1F;border:1px solid var(--line);border-radius:10px;padding:0 12px}
+.in input{flex:1;background:none;border:none;color:#fff;font-size:17px;font-weight:700;padding:11px 0;outline:none;width:100%}
+.in span{color:var(--mut);font-weight:700}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tog{display:flex;gap:6px;margin-top:6px}
+.tog button{flex:1;background:#070C1F;border:1px solid var(--line);color:var(--soft);padding:9px;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer}
+.tog button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.res{background:var(--y);color:#04060E;border-radius:14px;padding:18px;margin-bottom:14px}
+.res .big{font-family:"Archivo Black";font-size:46px;line-height:1}
+.res .lbl{font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.res p{font-size:14px;margin-top:8px;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.kpi b{display:block;font-family:"Archivo Black";font-size:22px;color:#fff}
+.kpi span{font-size:12px;color:var(--soft)}
+.warn{color:var(--red)}
+.how{font-size:14px;color:var(--soft)}
+.how b{color:#fff}
+.how li{margin:6px 0 6px 18px}
+.cta{display:block;text-align:center;background:var(--blue);color:#fff;text-decoration:none;font-weight:800;padding:14px;border-radius:12px;margin-top:6px}
+.foot{font-size:12px;color:var(--mut);margin-top:16px;text-align:center}
+</style></head><body><div class="w">
+<div class="top">Carlos Guti · Meta Ads Mastery 2.0</div>
+<h1>Tu ROAS de <span>equilibrio</span></h1>
+<p class="lead">Rellena tus números de un pedido medio. Te digo a partir de qué ROAS ganas dinero y cuánto puedes pagar como máximo por cada compra.</p>
+
+<div class="card"><h2>1 · Tu pedido medio</h2>
+  <label>Precio de venta del pedido <small>(lo que paga el cliente, con IVA)</small></label>
+  <div class="in"><input id="p" type="number" inputmode="decimal" value="60"><span>€</span></div>
+  <label>IVA de tu país <small>(pon 0 si vendes sin impuestos)</small></label>
+  <div class="in"><input id="iva" type="number" inputmode="decimal" value="21"><span>%</span></div>
+</div>
+
+<div class="card"><h2>2 · Lo que te cuesta cada pedido</h2>
+  <div class="row">
+    <div><label>Producto</label><div class="in"><input id="cp" type="number" inputmode="decimal" value="15"><span>€</span></div></div>
+    <div><label>Envío</label><div class="in"><input id="env" type="number" inputmode="decimal" value="6"><span>€</span></div></div>
+  </div>
+  <div class="row">
+    <div><label>Pasarela de pago</label><div class="in"><input id="pas" type="number" inputmode="decimal" value="2.5"><span>%</span></div></div>
+    <div><label>Otros <small>(caja, regalo…)</small></label><div class="in"><input id="otr" type="number" inputmode="decimal" value="0"><span>€</span></div></div>
+  </div>
+  <label>Devoluciones <small>(% de pedidos que se devuelven)</small></label>
+  <div class="in"><input id="dev" type="number" inputmode="decimal" value="0"><span>%</span></div>
+</div>
+
+<div class="card"><h2>3 · Cómo te mide Meta</h2>
+  <label>¿Tu píxel envía el valor de compra con IVA?</label>
+  <div class="tog"><button id="t1" class="on">Sí, con IVA</button><button id="t0">No, sin IVA</button></div>
+  <p class="how" style="margin-top:8px">Si no lo sabes, Shopify suele enviar el total del pedido. Compruébalo en el Administrador de eventos.</p>
+  <label>Beneficio que quieres ganar por pedido <small>(opcional)</small></label>
+  <div class="in"><input id="ben" type="number" inputmode="decimal" value="0"><span>€</span></div>
+</div>
+
+<div class="res"><div class="lbl">Tu ROAS de equilibrio</div><div class="big" id="r">–</div><p id="rt"></p></div>
+<div class="grid">
+  <div class="kpi"><b id="m">–</b><span>te queda por pedido antes de anuncios</span></div>
+  <div class="kpi"><b id="cpa">–</b><span>coste por compra máximo (CPA de equilibrio)</span></div>
+  <div class="kpi"><b id="ro">–</b><span>ROAS objetivo con tu beneficio</span></div>
+  <div class="kpi"><b id="cpao">–</b><span>coste por compra objetivo</span></div>
+</div>
+
+<div class="card" style="margin-top:14px"><h2>Cómo leerlo</h2>
+<ul class="how">
+  <li><b>ROAS por debajo del de equilibrio:</b> cada venta te cuesta más en anuncios de lo que te deja.</li>
+  <li><b>Por encima:</b> ganas dinero en esa venta. Cuanto más margen tengas, más fácil es escalar.</li>
+  <li>Esto mide la <b>primera compra</b>. Si tus clientes repiten, puedes aceptar un ROAS algo más bajo en captación, pero hazlo con datos de recompra, no a ojo.</li>
+  <li>Si tu equilibrio sale por encima de 3, antes de tocar campañas revisa precio, packs o coste de envío: es donde más se gana.</li>
+</ul></div>
+<a class="cta" href="https://www.skool.com/meta-ads-mastery-carlosguti/">Aprende a escalar en Meta Ads Mastery 2.0</a>
+<p class="foot">Calculadora de Carlos Guti · @carlosgutii11 · Los cálculos son orientativos: no incluyen costes fijos ni impuestos sobre beneficios.</p>
+</div>
+<script>
+const $=id=>document.getElementById(id);let iva=true;
+const f=v=>isFinite(v)?v.toLocaleString('es-ES',{maximumFractionDigits:2,minimumFractionDigits:2}):'–';
+function calc(){
+  const p=+$('p').value||0,t=(+$('iva').value||0)/100,cp=+$('cp').value||0,en=+$('env').value||0,pa=(+$('pas').value||0)/100,ot=+$('otr').value||0,dv=(+$('dev').value||0)/100,be=+$('ben').value||0;
+  const neto=p/(1+t);
+  // devoluciones: se pierde el ingreso neto de ese % de pedidos, pero el envío y la pasarela ya se han pagado
+  const margen=neto*(1-dv)-cp*(1-dv)-en-p*pa-ot;
+  const base=iva?p:neto;
+  if(margen<=0){$('r').textContent='Sin margen';$('rt').innerHTML='Con estos números pierdes dinero en cada pedido incluso sin anuncios. Revisa precio o costes.';['m','cpa','ro','cpao'].forEach(k=>$(k).textContent='–');$('m').textContent=f(margen)+' €';return}
+  const r=base/margen;
+  $('r').textContent=r.toFixed(2).replace('.',',');
+  $('rt').textContent='Por debajo de '+r.toFixed(2).replace('.',',')+' pierdes dinero en cada venta. Por encima, ganas.';
+  $('m').textContent=f(margen)+' €';$('cpa').textContent=f(margen)+' €';
+  if(be>0&&be<margen){$('ro').textContent=(base/(margen-be)).toFixed(2).replace('.',',');$('cpao').textContent=f(margen-be)+' €'}
+  else{$('ro').textContent=be>=margen?'No llega':'–';$('cpao').textContent='–'}
+}
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',calc));
+$('t1').onclick=()=>{iva=true;$('t1').classList.add('on');$('t0').classList.remove('on');calc()};
+$('t0').onclick=()=>{iva=false;$('t0').classList.add('on');$('t1').classList.remove('on');calc()};
+calc();
+</script></body></html>
